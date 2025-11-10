@@ -85,7 +85,7 @@
                     card.style.cursor = 'pointer';
                     card.innerHTML = `
                         <h2>${project.name}</h2>
-                        <p id="desc-${idx}">${project.description}</p>
+                        <p id="desc-${idx}">${project.description.replace(/\n/g, '<br>')}</p>
                         <div style="margin-top:10px;font-size:0.95em;"><a href="${project.url}" target="_blank" style="color:#667eea;text-decoration:underline;" onclick="event.stopPropagation();">GitHub 仓库</a></div>
                     `;
                     card.onclick = () => { window.open(project.pages, '_blank'); };
