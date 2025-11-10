@@ -69,84 +69,46 @@
 </head>
 <body>
     <div class="container">
-        <h1>🚀 hayde0096 Projects Hub</h1>
-        <p class="subtitle">个人项目集合</p>
-        <div class="projects" id="projectsContainer">
-            <div id="loading" style="color:white;font-size:1.2em;">正在加载仓库信息...</div>
-        </div>
+    <h1>📚 我的 GitHub Pages 项目</h1>
+    <p class="subtitle">自动检测哪些仓库有 GitHub Pages 页面</p>
+    <div class="projects" id="pages-list">加载中...</div>
     </div>
 
-    <script>
-    // ======= 配置区 =======
-    const GITHUB_USERNAME = "hayde0096"; // ← 你的 GitHub 用户名
+        <script>
+        const username = "hayde0096";
+        const container = document.getElementById("pages-list");
 
-    // ======= 逻辑区 =======
-    const container = document.getElementById('projectsContainer');
-    const loading = document.getElementById('loading');
-
-    async function fetchRepos() {
-        let url = `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100`;
-        const resp = await fetch(url);
-        if (!resp.ok) throw new Error('获取仓库列表失败');
-        return await resp.json();
-    }
-
-    async function fetchPages(repo) {
-        let url = `https://api.github.com/repos/${GITHUB_USERNAME}/${repo.name}/pages`;
-        const resp = await fetch(url);
-        if (resp.status === 404) return null; // 未启用 Pages
-        if (!resp.ok) return null;
-        return await resp.json();
-    }
-
-    async function main() {
-        try {
-            const repos = await fetchRepos();
-            const pagesRepos = [];
-            for (const repo of repos) {
-                // 跳过 fork 仓库
-                if (repo.fork) continue;
-                const pages = await fetchPages(repo);
-                if (pages && pages.status === "built" && pages.html_url) {
-                    pagesRepos.push({
-                        name: repo.name,
-                        description: repo.description || "暂无描述",
-                        url: repo.html_url,
-                        pages: pages.html_url,
-                        tags: [repo.language || "未知"]
+        fetch(`https://api.github.com/users/${username}/repos?per_page=100`)
+            .then(res => res.json())
+            .then(repos => {
+                let found = 0;
+                container.innerHTML = "";
+                repos.forEach(repo => {
+                    if (repo.fork) return;
+                    const pageUrl = `https://${username}.github.io/${repo.name}/`;
+                    fetch(pageUrl, { method: 'HEAD' }).then(resp => {
+                        if (resp.ok) {
+                            found++;
+                            const card = document.createElement("a");
+                            card.href = pageUrl;
+                            card.className = "project-card";
+                            card.target = "_blank";
+                            card.innerHTML = `
+                                <h2>${repo.name}</h2>
+                                <p>${repo.description ? repo.description : "暂无描述"}</p>
+                                <div><span class="badge">${repo.language || "未知"}</span></div>
+                                <div style="margin-top:10px;font-size:0.95em;"><a href="${repo.html_url}" target="_blank" style="color:#667eea;text-decoration:underline;">GitHub 仓库</a></div>
+                            `;
+                            container.appendChild(card);
+                        }
                     });
-                }
-            }
-            renderProjects(pagesRepos);
-        } catch (e) {
-            loading.textContent = "加载失败: " + e.message;
-        }
-    }
-
-    function renderProjects(projects) {
-        loading.style.display = 'none';
-        if (!projects.length) {
-            container.innerHTML = '<div style="color:white;font-size:1.2em;">没有启用 GitHub Pages 的仓库。</div>';
-            return;
-        }
-        container.innerHTML = '';
-        projects.forEach(project => {
-            const card = document.createElement('a');
-            card.href = project.pages;
-            card.className = 'project-card';
-            card.target = '_blank';
-            const tagsHtml = project.tags.map(tag => `<span class="badge">${tag}</span>`).join('');
-            card.innerHTML = `
-                <h2>${project.name}</h2>
-                <p>${project.description}</p>
-                <div>${tagsHtml}</div>
-                <div style="margin-top:10px;font-size:0.95em;"><a href="${project.url}" target="_blank" style="color:#667eea;text-decoration:underline;">GitHub 仓库</a></div>
-            `;
-            container.appendChild(card);
-        });
-    }
-
-    main();
-    </script>
-</body>
-</html>
+                });
+                setTimeout(() => {
+                    if (!found) container.innerHTML = '<div style="color:white;font-size:1.2em;">没有检测到可访问的 GitHub Pages 项目。</div>';
+                }, 3000);
+            })
+            .catch(() => {
+                container.innerHTML = '<div style="color:white;font-size:1.2em;">加载失败，请稍后重试。</div>';
+            });
+        </script>
+                                if (repo.fork) return;
