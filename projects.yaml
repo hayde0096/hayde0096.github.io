@@ -5,8 +5,10 @@
     A website offering my collection of clothing prompts, using the NoobXL V-pred model. Currently featuring 400+ outfits.
   url: https://github.com/hayde0096/kisegae
   pages: https://hayde0096.github.io/kisegae/
-  
-- name: hayde0096.github.io
-  description: HOMEPAGE
-  url: https://github.com/hayde0096/hayde0096.github.io
-  pages: https://hayde0096.github.io/
+
+- name: PromptFormatter
+  description: |
+    AI 提示词格式化工具 / AI prompt formatter
+    Stabe diffusion←→NovelAI
+  url: https://github.com/hayde0096/PromptFormatter
+  pages: https://hayde0096.github.io/PromptFormatter/
