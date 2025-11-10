@@ -35,16 +35,33 @@
             background: white;
             border-radius: 12px;
             padding: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
             text-decoration: none;
             color: #333;
             display: block;
+            margin-bottom: 0;
         }
+        /* 去除悬浮效果 */
         .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            transform: none;
+        }
+        .flat-btn {
+            display: inline-block;
+            background: #667eea;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 7px 18px;
+            font-size: 1em;
+            margin-right: 10px;
+            margin-bottom: 5px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .flat-btn:hover {
+            background: #4a5fc1;
+            color: #fff;
         }
         .project-card h2 {
             color: #667eea;
@@ -82,13 +99,14 @@
                 projects.forEach((project, idx) => {
                     const card = document.createElement('div');
                     card.className = 'project-card';
-                    card.style.cursor = 'pointer';
                     card.innerHTML = `
                         <h2>${project.name}</h2>
                         <p id="desc-${idx}">${project.description.replace(/\n/g, '<br>')}</p>
-                        <div style="margin-top:10px;font-size:0.95em;"><a href="${project.url}" target="_blank" style="color:#667eea;text-decoration:underline;" onclick="event.stopPropagation();">GitHub 仓库</a></div>
+                        <div style="margin-top:10px;font-size:0.95em;">
+                            <a href="${project.pages}" target="_blank" class="flat-btn">Pages</a>
+                            <a href="${project.url}" target="_blank" class="flat-btn" style="background:#e2e8f0;color:#667eea;">Repo</a>
+                        </div>
                     `;
-                    card.onclick = () => { window.open(project.pages, '_blank'); };
                     container.appendChild(card);
                 });
             }
@@ -107,7 +125,7 @@
             async function loadProjects() {
                 try {
                     await loadScript('https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js');
-                    const txt = await fetch('projects.yaml').then(r => r.text());
+                    const txt = await fetch('projects.yaml?' + Date.now()).then(r => r.text());
                     const projects = window.jsyaml.load(txt);
                     renderProjects(projects);
                 } catch {
