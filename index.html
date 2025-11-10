@@ -107,16 +107,11 @@
             async function loadProjects() {
                 try {
                     await loadScript('https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js');
-                    const files = [
-                        'kisegae.yaml',
-                        'hayde0096.github.io.yaml'
-                        // 新增项目时在此添加文件名
-                    ];
-                    const promises = files.map(f => fetch('projects/' + f).then(r => r.text()).then(txt => window.jsyaml.load(txt)));
-                    const projects = await Promise.all(promises);
+                    const txt = await fetch('projects.yaml').then(r => r.text());
+                    const projects = window.jsyaml.load(txt);
                     renderProjects(projects);
                 } catch {
-                    container.innerHTML = '<div style="color:white;font-size:1.2em;">项目列表加载失败，请检查 projects 文件夹和 YAML 文件。</div>';
+                    container.innerHTML = '<div style="color:white;font-size:1.2em;">项目列表加载失败，请检查 projects.yaml 文件。</div>';
                 }
             }
 
