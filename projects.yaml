@@ -1,4 +1,4 @@
-- name: kisegae
+- name: Kisegae / 换装人偶
   description: |
     一个提供我收集的服装Prompt的网站，使用NoobXL V-pred模型。目前收录约400+套衣服。
     NoobXL V-predモデルを使用した、私が集めた衣装のPromptを提供するサイトです。現在約400点以上の衣装を掲載中。
@@ -6,9 +6,17 @@
   url: https://github.com/hayde0096/kisegae
   pages: https://hayde0096.github.io/kisegae/
 
-- name: PromptFormatter
+- name: PromptFormatter / 提示词格式化工具
   description: |
     AI 提示词格式化工具 / AI prompt formatter
-    Stabe diffusion←→NovelAI
+    Stabe diffusion←转换 / Transform→NovelAI
   url: https://github.com/hayde0096/PromptFormatter
   pages: https://hayde0096.github.io/PromptFormatter/
+
+- name: Samplers & Schedulers Documentation / 采样器与调度器文档
+  description: |
+    提供Stable Diffusion采样器和调度器的简要技术说明、分类和使用指南，支持中英日三语切换。
+    Stable Diffusionのサンプラーとスケジューラの簡単な技術説明、分類、使用ガイドを提供し、中日英の3言語切り替えに対応。
+    Offers simple technical explanations, classifications, and usage guides for Stable Diffusion samplers and schedulers with trilingual support (Chinese, English, Japanese).
+  url: https://github.com/hayde0096/Samplers_and_Scheduler_DOC
+  pages: https://hayde0096.github.io/Samplers_and_Scheduler_DOC/
