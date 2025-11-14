@@ -20,3 +20,9 @@
     Offers simple technical explanations, classifications, and usage guides for Stable Diffusion samplers and schedulers with trilingual support (Chinese, English, Japanese).
   url: https://github.com/hayde0096/Samplers_and_Scheduler_DOC
   pages: https://hayde0096.github.io/Samplers_and_Scheduler_DOC/
+
+- name: Hypno-app-pages
+  description: |
+    Just a GLSL
+  url: https://github.com/hayde0096/Hypno-app-pages
+  pages: https://hayde0096.github.io/Hypno-app-pages/
